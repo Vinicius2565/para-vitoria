@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f0ea" />
+    <meta name="description" content="Um cantinho feito com amor para Vitória: nossas fotos, nossas lembranças e tudo o que ainda vamos viver." />
+    <title>Para Vitória, com amor ♡</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./conteudo.js" defer></script>
+    <script src="./main.js" defer></script>
+  </head>
+  <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="#inicio" aria-label="Voltar ao início">V <span>♡</span> V</a>
+        <nav aria-label="Navegação principal">
+          <a href="#historia">Nossa história</a>
+          <a href="#fotos">Fotos</a>
+          <a class="nav-letter" href="#cartinha">Uma cartinha <span aria-hidden="true">↗</span></a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero" id="inicio" aria-labelledby="hero-title">
+          <div class="hero-spark hero-spark-a" aria-hidden="true">✳</div>
+          <div class="hero-spark hero-spark-b" aria-hidden="true">✴</div>
+          <div class="hero-copy reveal">
+            <span class="eyebrow"><span class="eyebrow-line"></span> UM PRESENTE SÓ NOSSO</span>
+            <h1 id="hero-title">Para <em>Vitória,</em><br />com todo o<br />meu amor<span class="title-heart">♡</span></h1>
+            <p id="hero-description"></p>
+            <a class="pill-button" href="#historia">Vem passear comigo <span aria-hidden="true">↓</span></a>
+            <span class="scroll-note">DESLIZE PARA DESCOBRIR <span aria-hidden="true">↘</span></span>
+          </div>
+          <div class="hero-art" aria-label="Colagem de fotografias nossas">
+            <div class="hero-blob" aria-hidden="true"></div>
+            <div class="photo-frame hero-photo hero-photo-back tilt-card" data-tilt>
+              <img src="./fotos/foto-06.jpeg" alt="Nós dois juntos em um passeio ao pôr do sol" fetchpriority="high" />
+            </div>
+            <div class="photo-frame hero-photo hero-photo-front tilt-card" data-tilt>
+              <img src="./fotos/foto-02.jpeg" alt="Nós dois sorrindo durante um passeio" fetchpriority="high" />
+            </div>
+            <div class="hero-sticker sticker-love" aria-hidden="true">love<br />you!</div>
+            <div class="hero-sticker sticker-heart" aria-hidden="true">♥</div>
+            <span class="hero-caption">A melhor parte de tudo é ter você comigo.</span>
+          </div>
+        </section>
+
+        <div class="ticker" aria-hidden="true"><div class="ticker-track">VOCÊ + EU <span>✳</span> NOSSOS MOMENTOS <span>✳</span> TODO O MEU AMOR <span>✳</span> VOCÊ + EU <span>✳</span> NOSSOS MOMENTOS <span>✳</span> TODO O MEU AMOR <span>✳</span></div></div>
+
+        <section class="intro section-pad" id="historia" aria-labelledby="intro-title">
+          <div class="section-heading reveal">
+            <span class="eyebrow">01 / A NOSSA HISTÓRIA</span>
+            <h2 id="intro-title">O meu lugar favorito<br />é <em>ao seu lado.</em></h2>
+          </div>
+          <div class="intro-layout">
+            <div class="intro-photos reveal">
+              <figure class="photo-frame intro-main tilt-card" data-tilt><img src="./fotos/foto-04.jpeg" alt="Um momento nosso ao ar livre" loading="lazy" /><figcaption>nós, em cada aventura ♡</figcaption></figure>
+              <figure class="photo-frame intro-small tilt-card" data-tilt><img src="./fotos/foto-01.jpeg" alt="Vitória com nosso cachorrinho" loading="lazy" /></figure>
+              <span class="intro-doodle" aria-hidden="true">♡</span>
+            </div>
+            <div class="intro-copy reveal">
+              <span class="handwritten">um pouquinho de nós...</span>
+              <p id="intro-message"></p>
+              <p id="intro-message-two"></p>
+              <span class="small-divider" aria-hidden="true">✷ ✷ ✷</span>
+              <p class="intro-signoff">E ainda é só o começo.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="memory-section section-pad" id="fotos" aria-labelledby="memories-title">
+          <div class="memory-heading reveal">
+            <span class="eyebrow">02 / NOSSAS LEMBRANÇAS</span>
+            <h2 id="memories-title">Pequenos momentos,<br /><em>um amor gigante.</em></h2>
+            <p>Cada foto guarda um pedacinho da nossa história. Toque em uma delas para ver de pertinho.</p>
+          </div>
+          <div id="memory-list" class="memory-list"></div>
+        </section>
+
+        <section class="orbit-section section-pad" id="universo" aria-labelledby="orbit-title">
+          <div class="orbit-heading reveal">
+            <span class="eyebrow">03 / NOSSO UNIVERSO</span>
+            <h2 id="orbit-title">Se eu pudesse voltar no tempo,<br /><em>viveria tudo de novo.</em></h2>
+            <p>Alguns instantes merecem mais uma volta.</p>
+          </div>
+          <div class="orbit-scene" id="orbit-scene" tabindex="0" role="group" aria-roledescription="carrossel" aria-label="Carrossel 3D de fotografias nossas">
+            <div class="orbit-halo" aria-hidden="true"></div>
+            <div class="orbit-spark orbit-spark-one" aria-hidden="true">✳</div>
+            <div class="orbit-spark orbit-spark-two" aria-hidden="true">♡</div>
+            <div class="orbit-track" id="orbit-track"></div>
+          </div>
+          <div class="orbit-controls">
+            <button class="orbit-arrow" id="orbit-prev" type="button" aria-label="Foto anterior">←</button>
+            <div class="orbit-caption-wrap"><span id="orbit-count" class="orbit-count"></span><p id="orbit-caption" class="orbit-caption" aria-live="polite"></p></div>
+            <button class="orbit-arrow" id="orbit-next" type="button" aria-label="Próxima foto">→</button>
+          </div>
+          <p class="orbit-hint">Arraste ou use as setas para passear pelas fotos</p>
+        </section>
+
+        <section class="quote-section" aria-label="Uma declaração">
+          <span class="quote-star quote-star-left" aria-hidden="true">✳</span>
+          <p id="big-quote" class="reveal"></p>
+          <span class="quote-star quote-star-right" aria-hidden="true">✳</span>
+        </section>
+
+        <section class="gallery-section" aria-labelledby="gallery-title">
+          <div class="gallery-top reveal section-pad"><div><span class="eyebrow">04 / NOSSA CAIXA DE MEMÓRIAS</span><h2 id="gallery-title">Uma foto de cada vez,<br /><em>toda a nossa história.</em></h2><p>Desça devagar: as lembranças vão saindo da caixa conforme você rola a página.</p></div><span class="gallery-note">a nossa coleção de momentos ♡</span></div>
+          <div class="box-scroll" id="box-scroll">
+            <div class="box-stage" id="box-stage">
+              <div class="box-stage-glow" aria-hidden="true"></div>
+              <div class="box-photo-layer" id="box-photo-layer"></div>
+              <div class="memory-box" aria-hidden="true"><div class="memory-box-lid"></div><div class="memory-box-back"></div><div class="memory-box-front"><span>nossas<br />memórias</span><b>♡</b></div></div>
+              <div class="box-stage-copy"><span id="box-count">01 / 16</span><p id="box-caption"></p><small>continue descendo ↓</small></div>
+              <div class="box-progress" aria-hidden="true"><span id="box-progress-fill"></span></div>
+            </div>
+          </div>
+          <div class="gallery-finale section-pad"><div class="gallery-finale-heading reveal"><span class="eyebrow">NOSSO ÁLBUM COMPLETO</span><h3>Todas juntinhas, <em>do nosso jeitinho.</em></h3><p>Toque em qualquer foto para ver de perto.</p></div><div id="gallery-grid" class="gallery-grid"></div></div>
+        </section>
+
+        <section class="letter-section section-pad" id="cartinha" aria-labelledby="letter-title">
+          <div class="letter-ornament ornament-a" aria-hidden="true">✳</div><div class="letter-ornament ornament-b" aria-hidden="true">♡</div>
+          <div class="letter-content reveal"><span class="eyebrow">05 / SÓ PARA VOCÊ</span><h2 id="letter-title">Antes de ir...<br /><em>uma cartinha.</em></h2><p>Tenho uma última coisa para te dizer.</p>
+            <button class="envelope-button" id="open-letter" type="button" aria-haspopup="dialog"><span class="envelope-icon" aria-hidden="true">✉</span> Abrir a cartinha <span aria-hidden="true">↗</span></button>
+          </div>
+        </section>
+      </main>
+      <footer class="site-footer"><span>Feito com amor, só para você ♡</span><a href="#inicio">Voltar ao começo ↑</a></footer>
+    </div>
+
+    <dialog id="photo-dialog" class="photo-dialog" aria-label="Fotografia ampliada"><button class="dialog-close" type="button" aria-label="Fechar fotografia">×</button><button class="photo-arrow photo-prev" type="button" aria-label="Foto anterior">‹</button><figure><img id="dialog-image" alt="" /><figcaption id="dialog-caption"></figcaption></figure><button class="photo-arrow photo-next" type="button" aria-label="Próxima foto">›</button></dialog>
+    <dialog id="letter-dialog" class="letter-dialog" aria-labelledby="letter-dialog-title"><button class="dialog-close" type="button" aria-label="Fechar cartinha">×</button><div class="letter-paper"><span class="letter-seal" aria-hidden="true">♡</span><span class="eyebrow">UMA CARTA PARA VOCÊ</span><h2 id="letter-dialog-title">Meu amor,</h2><div id="letter-body"></div><p class="letter-signature" id="letter-signature"></p></div></dialog>
+  </body>
+</html>

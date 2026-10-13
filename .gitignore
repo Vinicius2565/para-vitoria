@@ -1,3 +1,4 @@
 # As fotos originais ficam apenas no computador; a página usa as cópias em dist/fotos.
 WhatsApp Image *.jpeg
+.aws/
 .DS_Store

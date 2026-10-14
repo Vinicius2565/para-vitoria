@@ -297,10 +297,31 @@ function onScroll() {
   requestAnimationFrame(() => {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     document.querySelector(".scroll-progress").style.width = `${scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0}%`;
-    if (!reducedMotion && window.scrollY < window.innerHeight * 1.5) {
-      const offset = Math.min(window.scrollY, 700);
-      document.querySelector(".hero-photo-front").style.translate = `0 ${offset * -0.11}px`;
-      document.querySelector(".hero-photo-back").style.translate = `0 ${offset * 0.07}px`;
+    if (!reducedMotion) {
+      const giftIntro = document.querySelector("#presente");
+      const giftStage = document.querySelector("#gift-stage");
+      const giftRect = giftIntro.getBoundingClientRect();
+      const giftTravel = Math.max(1, giftRect.height - window.innerHeight);
+      const giftProgress = Math.max(0, Math.min(1, -giftRect.top / giftTravel));
+      const opening = Math.max(0, Math.min(1, (giftProgress - .15) / .47));
+      const copyFade = Math.max(0, Math.min(1, (giftProgress - .35) / .34));
+      const objectFade = Math.max(0, Math.min(1, (giftProgress - .69) / .22));
+      const flashIn = Math.max(0, Math.min(1, (giftProgress - .66) / .2));
+      const flashOut = Math.max(0, Math.min(1, (1 - giftProgress) / .13));
+      giftStage.style.setProperty("--gift-lid-y", `${(-100 * opening).toFixed(1)}px`);
+      giftStage.style.setProperty("--gift-lid-rx", `${(-68 * opening).toFixed(1)}deg`);
+      giftStage.style.setProperty("--gift-box-y", `${(-28 * opening).toFixed(1)}px`);
+      giftStage.style.setProperty("--gift-copy-opacity", String(1 - copyFade));
+      giftStage.style.setProperty("--gift-object-opacity", String(1 - objectFade));
+      giftStage.style.setProperty("--gift-bloom-scale", String(1 + opening * .5));
+      giftStage.style.setProperty("--gift-flash-opacity", String(flashIn * flashOut * .94));
+
+      const heroRect = document.querySelector(".hero").getBoundingClientRect();
+      if (heroRect.bottom > 0 && heroRect.top < window.innerHeight * 1.5) {
+        const offset = Math.max(0, Math.min(-heroRect.top, 700));
+        document.querySelector(".hero-photo-front").style.translate = `0 ${offset * -0.11}px`;
+        document.querySelector(".hero-photo-back").style.translate = `0 ${offset * 0.07}px`;
+      }
     }
     scrollQueued = false;
   });

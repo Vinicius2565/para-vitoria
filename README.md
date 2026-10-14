@@ -16,7 +16,7 @@ Na pasta do projeto, execute `python3 -m http.server 8000 --directory dist` e ac
 
 As fotos originais permanecem na raiz do projeto. As cópias com nomes curtos em `dist/fotos/` são as usadas pela página.
 
-Na abertura, a caixa de presente flutua e se abre com a rolagem; um brilho revela a página principal. O carrossel avança sozinho quando está visível e também aceita setas, teclado e arrasto. A caixa de memórias só avança quando a pessoa rola a página. Em dispositivos com redução de movimento ativada, o avanço automático e os efeitos contínuos são desligados; as 16 fotos continuam disponíveis no álbum final.
+Na abertura, a caixa de presente flutua e se abre enquanto a pessoa desce; um brilho revela diretamente a página principal, que já está por trás da abertura. Também é possível tocar no convite para abrir. O carrossel avança sozinho quando está visível e também aceita setas, teclado e arrasto. A caixa de memórias só avança quando a pessoa rola a página. Em dispositivos com redução de movimento ativada, o avanço automático e os efeitos contínuos são desligados; as 16 fotos continuam disponíveis no álbum final.
 
 ## Publicação
 

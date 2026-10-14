@@ -290,6 +290,102 @@ if ("IntersectionObserver" in window && !reducedMotion) {
   document.querySelectorAll(".reveal,.memory-row").forEach(el => el.classList.add("visible"));
 }
 
+const giftIntro = document.querySelector("#presente");
+const giftStage = document.querySelector("#gift-stage");
+const contentBehindGift = [...document.querySelectorAll(".site-header, main, .site-footer")];
+let giftProgress = 0;
+let giftComplete = false;
+let giftAutoOpening = false;
+let lastTouchY = null;
+const clampGift = value => Math.max(0, Math.min(1, value));
+
+function renderGift(progress) {
+  giftProgress = clampGift(progress);
+  const opening = clampGift((giftProgress - .15) / .47);
+  const copyFade = clampGift((giftProgress - .35) / .34);
+  const objectFade = clampGift((giftProgress - .69) / .22);
+  const flashIn = clampGift((giftProgress - .66) / .2);
+  const flashOut = clampGift((1 - giftProgress) / .13);
+  giftStage.style.setProperty("--gift-lid-y", `${(-100 * opening).toFixed(1)}px`);
+  giftStage.style.setProperty("--gift-lid-rx", `${(-68 * opening).toFixed(1)}deg`);
+  giftStage.style.setProperty("--gift-box-y", `${(-28 * opening).toFixed(1)}px`);
+  giftStage.style.setProperty("--gift-copy-opacity", String(1 - copyFade));
+  giftStage.style.setProperty("--gift-object-opacity", String(1 - objectFade));
+  giftStage.style.setProperty("--gift-bloom-scale", String(1 + opening * .5));
+  giftStage.style.setProperty("--gift-flash-opacity", String(flashIn * flashOut * .94));
+  giftIntro.style.opacity = String(1 - clampGift((giftProgress - .86) / .14));
+}
+
+function finishGift() {
+  if (giftComplete) return;
+  giftComplete = true;
+  renderGift(1);
+  const hadFocus = giftIntro.contains(document.activeElement);
+  giftIntro.hidden = true;
+  document.body.classList.remove("gift-locked");
+  contentBehindGift.forEach(element => { element.inert = false; });
+  if (hadFocus) document.querySelector(".site-header .brand").focus({ preventScroll: true });
+}
+
+function advanceGift(amount) {
+  if (giftComplete || giftAutoOpening) return;
+  if (reducedMotion) { finishGift(); return; }
+  renderGift(giftProgress + amount);
+  if (giftProgress >= 1) finishGift();
+}
+
+function openGiftByButton() {
+  if (giftComplete || giftAutoOpening) return;
+  if (reducedMotion) { finishGift(); return; }
+  giftAutoOpening = true;
+  const start = performance.now();
+  const from = giftProgress;
+  const step = now => {
+    const t = clampGift((now - start) / 900);
+    renderGift(from + (1 - from) * (t * t * (3 - 2 * t)));
+    if (t < 1) requestAnimationFrame(step);
+    else finishGift();
+  };
+  requestAnimationFrame(step);
+}
+
+document.querySelector(".gift-scroll-instruction").addEventListener("click", openGiftByButton);
+window.addEventListener("wheel", event => {
+  if (giftComplete || event.ctrlKey) return;
+  event.preventDefault();
+  const pixels = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1);
+  advanceGift(Math.max(-.25, Math.min(.25, pixels / (window.innerHeight * .8))));
+}, { passive: false });
+window.addEventListener("touchstart", event => {
+  if (!giftComplete) lastTouchY = event.touches[0]?.clientY ?? null;
+}, { passive: true });
+window.addEventListener("touchmove", event => {
+  if (giftComplete || lastTouchY === null) return;
+  event.preventDefault();
+  const currentY = event.touches[0]?.clientY ?? lastTouchY;
+  advanceGift((lastTouchY - currentY) / (window.innerHeight * .75));
+  lastTouchY = currentY;
+}, { passive: false });
+window.addEventListener("touchend", () => { lastTouchY = null; });
+window.addEventListener("keydown", event => {
+  if (giftComplete) return;
+  if (event.target.closest?.(".gift-scroll-instruction") && [" ", "Enter"].includes(event.key)) return;
+  const down = ["ArrowDown", "PageDown", " "];
+  const up = ["ArrowUp", "PageUp"];
+  if (down.includes(event.key) || up.includes(event.key)) {
+    event.preventDefault();
+    advanceGift(down.includes(event.key) ? .2 : -.2);
+  }
+});
+if ((window.location.hash && window.location.hash !== "#presente") || window.scrollY > 0) finishGift();
+else {
+  document.body.classList.add("gift-locked");
+  contentBehindGift.forEach(element => { element.inert = true; });
+}
+window.addEventListener("pageshow", () => {
+  if (!giftComplete && window.scrollY > 0) finishGift();
+});
+
 let scrollQueued = false;
 function onScroll() {
   if (scrollQueued) return;
@@ -298,24 +394,6 @@ function onScroll() {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     document.querySelector(".scroll-progress").style.width = `${scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0}%`;
     if (!reducedMotion) {
-      const giftIntro = document.querySelector("#presente");
-      const giftStage = document.querySelector("#gift-stage");
-      const giftRect = giftIntro.getBoundingClientRect();
-      const giftTravel = Math.max(1, giftRect.height - window.innerHeight);
-      const giftProgress = Math.max(0, Math.min(1, -giftRect.top / giftTravel));
-      const opening = Math.max(0, Math.min(1, (giftProgress - .15) / .47));
-      const copyFade = Math.max(0, Math.min(1, (giftProgress - .35) / .34));
-      const objectFade = Math.max(0, Math.min(1, (giftProgress - .69) / .22));
-      const flashIn = Math.max(0, Math.min(1, (giftProgress - .66) / .2));
-      const flashOut = Math.max(0, Math.min(1, (1 - giftProgress) / .13));
-      giftStage.style.setProperty("--gift-lid-y", `${(-100 * opening).toFixed(1)}px`);
-      giftStage.style.setProperty("--gift-lid-rx", `${(-68 * opening).toFixed(1)}deg`);
-      giftStage.style.setProperty("--gift-box-y", `${(-28 * opening).toFixed(1)}px`);
-      giftStage.style.setProperty("--gift-copy-opacity", String(1 - copyFade));
-      giftStage.style.setProperty("--gift-object-opacity", String(1 - objectFade));
-      giftStage.style.setProperty("--gift-bloom-scale", String(1 + opening * .5));
-      giftStage.style.setProperty("--gift-flash-opacity", String(flashIn * flashOut * .94));
-
       const heroRect = document.querySelector(".hero").getBoundingClientRect();
       if (heroRect.bottom > 0 && heroRect.top < window.innerHeight * 1.5) {
         const offset = Math.max(0, Math.min(-heroRect.top, 700));
